@@ -2,6 +2,7 @@ package com.myckamorais.workshop_springboot_mongodb.config;
 
 import com.myckamorais.workshop_springboot_mongodb.domain.Post;
 import com.myckamorais.workshop_springboot_mongodb.domain.User;
+import com.myckamorais.workshop_springboot_mongodb.dto.AuthorDto;
 import com.myckamorais.workshop_springboot_mongodb.repository.PostRepository;
 import com.myckamorais.workshop_springboot_mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null,sdf.parse("17/09/2026"),"Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-        Post post2 = new Post(null,sdf.parse("20/09/2026"),"Bom dia!!", "Acordei feliz hoje!", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null,sdf.parse("17/09/2026"),"Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDto(maria));
+        Post post2 = new Post(null,sdf.parse("20/09/2026"),"Bom dia!!", "Acordei feliz hoje!", new AuthorDto(maria));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
