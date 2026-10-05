@@ -1,6 +1,7 @@
 package com.myckamorais.workshop_springboot_mongodb.services;
 
 import com.myckamorais.workshop_springboot_mongodb.domain.User;
+import com.myckamorais.workshop_springboot_mongodb.dto.UserDTO;
 import com.myckamorais.workshop_springboot_mongodb.repository.UserRepository;
 import com.myckamorais.workshop_springboot_mongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,13 @@ public class UserService {
         Optional<User> user = repo.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
     }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+    public User fromDto(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+    }
+
 }
