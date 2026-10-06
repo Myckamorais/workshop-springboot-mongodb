@@ -4,6 +4,7 @@ import com.myckamorais.workshop_springboot_mongodb.domain.Post;
 import com.myckamorais.workshop_springboot_mongodb.domain.User;
 import com.myckamorais.workshop_springboot_mongodb.dto.AuthorDto;
 import com.myckamorais.workshop_springboot_mongodb.dto.UserDTO;
+import com.myckamorais.workshop_springboot_mongodb.resources.util.URL;
 import com.myckamorais.workshop_springboot_mongodb.services.PostService;
 import com.myckamorais.workshop_springboot_mongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,12 @@ public class PostResource {
         Post obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
+
+    @GetMapping(value = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+
 }
